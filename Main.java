@@ -6,6 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        if(!management.connectionCheck())
+            return;
+        
         System.out.println("Welcome to Behrooz Online Hospital Service.");
         management.optionsMenu();
 

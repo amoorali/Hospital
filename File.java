@@ -1,6 +1,8 @@
 package Hospital;
 
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class File {
     public static final String DB_NAME = "hospital.db";
@@ -35,6 +37,28 @@ public class File {
     public static final String COLUMN_VISIT_PATIENT = "patient";
     public static final String COLUMN_VISIT_DRUG = "drug";
     public static final String COLUMN_VISIT_DATE = "date";
+
+    private Connection connection;
+
+    public boolean open() {
+        try {
+            connection = DriverManager.getConnection(CONNECTION_STRING);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Couldn't connect to the database " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't close connection " + e.getMessage());
+        }
+    }
 
 
     private static ArrayList<Doctor> doctors = new ArrayList<>();

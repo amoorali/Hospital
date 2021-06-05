@@ -4,6 +4,16 @@ public class Management {
 
     private static int visitID = 0;
 
+    private File file = new File();
+
+    public boolean connectionCheck() {
+        if(!file.open()) {
+            System.out.println("Can't open File.");
+            return false;
+        }
+        return true;
+    }
+
     public void optionsMenu() {
         System.out.println("""
                 Press 0 for options menu.
