@@ -1,5 +1,6 @@
 package Hospital;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class File {
     public static final String COLUMN_DOCTOR_NAME = "name";
     public static final String COLUMN_DOCTOR_NATIONALID = "n_id";
     public static final String COLUMN_DOCTOR_SPECIALTY = "specialty";
+    public static final String COLUMN_DOCTOR_MEDICALCODE = "m_id";
 
     public static final String TABLE_PATIENTS = "patients";
     public static final String COLUMN_PATIENT_NAME = "name";
@@ -60,6 +62,90 @@ public class File {
         }
     }
 
+    private Patient patientCreator() {
+        String name, nCode, illness;
+        System.out.println("*PATIENT*");
+        System.out.print("Name: ");
+        name = ScannerWrapper.getInstance().nextLine();
+        System.out.print("National Code: ");
+        nCode = ScannerWrapper.getInstance().nextLine();
+        System.out.print("Illness: ");
+        illness = ScannerWrapper.getInstance().nextLine();
+        addPatientColumn(name, nCode, illness);
+        return new Patient(name, nCode, illness);
+    }
+
+    private void addPatientColumn(String name, String nCode, String illness) {
+        try(Statement statement = connection.createStatement()){
+            statement.execute("INSERT INTO " + TABLE_PATIENTS +
+                                  " (" + COLUMN_PATIENT_NAME +
+                                  ", " + COLUMN_PATIENT_NATIONALID +
+                                  ", " + COLUMN_PATIENT_ILLNESS + ")" +
+                                  "VALUES ('" + name  + "', '" + nCode + "', '" + illness + "')");
+        } catch(SQLException e) {
+            System.out.println("Something went wrong " + e.getMessage());
+        }
+    }
+
+    private Doctor doctorCreator() {
+        String name, nCode, specialty, mCode;
+        System.out.println("*DOCTOR*");
+        System.out.print("Name: ");
+        name = ScannerWrapper.getInstance().nextLine();
+        System.out.print("National Code: ");
+        nCode = ScannerWrapper.getInstance().nextLine();
+        System.out.print("Specialty: ");
+        specialty = ScannerWrapper.getInstance().nextLine();
+        System.out.print("Medical Code: ");
+        mCode = ScannerWrapper.getInstance().nextLine();
+        addDoctorColumn(name,nCode,specialty,mCode);
+        return new Doctor(name, nCode, specialty, mCode);
+    }
+
+    private void addDoctorColumn(String name, String nCode, String specialty, String mCode) {
+        try(Statement statement = connection.createStatement()){
+            statement.execute("INSERT INTO " + TABLE_DOCTORS +
+                    " (" + COLUMN_DOCTOR_NAME +
+                    ", " + COLUMN_DOCTOR_NATIONALID +
+                    ", " + COLUMN_DOCTOR_SPECIALTY +
+                    ", " + COLUMN_DOCTOR_MEDICALCODE + ")" +
+                    "VALUES ('" + name  + "', '" + nCode + "', '" + specialty + "', '" + mCode + "')");
+        } catch(SQLException e) {
+            System.out.println("Something went wrong " + e.getMessage());
+        }
+    }
+
+    private Drug drugCreator() {
+        String name, company, illness;
+        System.out.println("*DRUG*");
+        System.out.print("Name: ");
+        name = ScannerWrapper.getInstance().nextLine();
+        System.out.print("Creator Company: ");
+        company = ScannerWrapper.getInstance().nextLine();
+        System.out.print("Treatment of: ");
+        illness = ScannerWrapper.getInstance().nextLine();
+        Drug drug = new Drug(name,company,illness);
+        addDrugColumn(name, company, illness, drug.getMakeDate(), drug.getExpireDate());
+        return drug;
+    }
+
+    private void addDrugColumn(String name, String company, String illness, String makeDate, String expireDate) {
+        try(Statement statement = connection.createStatement()){
+            statement.execute("INSERT INTO " + TABLE_PATIENTS +
+                    " (" + COLUMN_PATIENT_NAME +
+                    ", " + COLUMN_PATIENT_NATIONALID +
+                    ", " + COLUMN_PATIENT_ILLNESS + ")" +
+                    "VALUES ('" + name  + "', '" + company + "', '" + illness
+                    + "', '" + makeDate  + "', '" + expireDate + "')");
+        } catch(SQLException e) {
+            System.out.println("Something went wrong " + e.getMessage());
+        }
+    }
+
+    //first should write codes above for remaining classes (Visit - Message)
+    //the rest of this should get deleted / write some code for removing an object.
+    //then write query for classes to show them in terminal.
+    //also write
 
     private static ArrayList<Doctor> doctors = new ArrayList<>();
     private static ArrayList<Patient> patients = new ArrayList<>();
