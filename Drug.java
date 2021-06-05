@@ -6,21 +6,18 @@ public class Drug {
     private final String illness;
     private final Date makeDate;
     private final Date expireDate;
-    private final String description;
 
-    public Drug(String name, String company, String illness, String description) {
+    public Drug(String name, String company, String illness) {
         this.name = name;
         this.company = company;
         this.illness = illness;
         this.makeDate = new Date();
         this.expireDate = new Date();
-        this.description = description;
     }
 
     public String toString(){
-        return String.format("%8s %8s %8s %8s %8s %8s",
-                this.name, this.company, this.illness, getMakeDate(),
-                getExpireDate(), this.description);
+        return String.format("%8s %8s %8s %8s %8s",
+                this.name, this.company, this.illness, getMakeDate(), getExpireDate());
     }
 
     public String getName() {
@@ -41,10 +38,6 @@ public class Drug {
 
     public String getExpireDate() {
         return expireDate.date();
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void save() {
