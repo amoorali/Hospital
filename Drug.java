@@ -4,15 +4,13 @@ public class Drug {
     private final String name;
     private final String company;
     private final String illness;
-    private final Date makeDate;
-    private final Date expireDate;
+    private String makeDate;
+    private String expireDate;
 
     public Drug(String name, String company, String illness) {
         this.name = name;
         this.company = company;
         this.illness = illness;
-        this.makeDate = new Date();
-        this.expireDate = new Date();
     }
 
     public String toString(){
@@ -32,19 +30,26 @@ public class Drug {
         return illness;
     }
 
+    public void setMakeDate(String makeDate) {
+        System.out.print("Make Date: ");
+        this.makeDate = makeDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        System.out.print("Expire Date: ");
+        this.expireDate = expireDate;
+    }
+
     public String getMakeDate() {
-        return makeDate.date();
+        return makeDate;
     }
 
     public String getExpireDate() {
-        return expireDate.date();
+        return expireDate;
     }
 
-    public void save() {
-        File.save(this);
-    }
-
-    public void remove() {
-        File.remove(this);
+    public String createDate() {
+        Date date = new Date();
+        return date.date();
     }
 }
