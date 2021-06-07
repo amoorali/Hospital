@@ -3,7 +3,7 @@ package Hospital;
 public class Message {
     private final Doctor theDoctor;
     private final Patient thePatient;
-    private final String subject;
+    private StringBuilder subject;
     private Date date;
     private boolean visited = false;
 
@@ -11,7 +11,7 @@ public class Message {
     public Message(Doctor theDoctor, Patient thePatient, String subject) {
         this.theDoctor = theDoctor;
         this.thePatient = thePatient;
-        this.subject = subject;
+        this.subject.append("-").append(subject).append("\n");
         this.date = new Date();
     }
 
@@ -24,7 +24,11 @@ public class Message {
     }
 
     public String getSubject() {
-        return subject;
+        return subject.toString();
+    }
+
+    public void setSubject(String subject) {
+        this.subject.append("-").append(subject).append("\n");
     }
 
     public Date getDate() {
