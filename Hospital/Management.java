@@ -1,8 +1,20 @@
 package Hospital;
 
+import java.sql.Statement;
+
 public class Management {
 
     private static int visitID = 0;
+
+    private File file = new File();
+
+    public boolean openConnection() {
+        return file.open();
+    }
+
+    public void closeConnection() {
+        file.close();
+    }
 
     public void optionsMenu() {
         System.out.println("""
@@ -63,7 +75,7 @@ public class Management {
                 }
                 case 1 -> {
                     System.out.println("Please fill the form below:");
-                    File.save(new Visit(doctorCreator(), patientCreator(), drugCreator(), visitID++));
+//                    File.save(new Visit(doctorCreator(), patientCreator(), drugCreator(), visitID++));
                 }
                 case 2 -> {
                     System.out.println("""
@@ -164,45 +176,5 @@ public class Management {
             }
         }
         optionsMenu();
-    }
-
-    private Patient patientCreator() {
-        String name, nCode, illness;
-        System.out.println("PATIENT:");
-        System.out.print("Name: ");
-        name = ScannerWrapper.getInstance().nextLine();
-        System.out.print("National Code: ");
-        nCode = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Illness: ");
-        illness = ScannerWrapper.getInstance().nextLine();
-        return new Patient(name, nCode, illness);
-    }
-
-    private Doctor doctorCreator() {
-        String name, nCode, specialty, mCode;
-        System.out.println("DOCTOR:");
-        System.out.print("Name: ");
-        name = ScannerWrapper.getInstance().nextLine();
-        System.out.print("National Code: ");
-        nCode = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Specialty: ");
-        specialty = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Medical Code: ");
-        mCode = ScannerWrapper.getInstance().nextLine();
-        return new Doctor(name, nCode, specialty, mCode);
-    }
-
-    private Drug drugCreator() {
-        String name, company, illness, description;
-        System.out.println("DRUG:");
-        System.out.print("Name: ");
-        name = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Creator Company: ");
-        company = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Treatment of: ");
-        illness = ScannerWrapper.getInstance().nextLine();
-        System.out.print("Description: ");
-        description = ScannerWrapper.getInstance().nextLine();
-        return new Drug(name, company, illness, description);
     }
 }

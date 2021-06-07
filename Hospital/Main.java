@@ -6,6 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        if(!management.openConnection())
+            return;
+        
         System.out.println("Welcome to Behrooz Online Hospital Service.");
         management.optionsMenu();
 
@@ -39,5 +42,6 @@ public class Main {
             }
         }
         ScannerWrapper.getInstance().close();
+        management.closeConnection();
     }
 }
