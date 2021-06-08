@@ -1,7 +1,5 @@
 package Hospital;
 
-import javax.print.Doc;
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
